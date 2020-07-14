@@ -1,4 +1,3 @@
-# From https://www.gregjs.com/linux/2016/linux-tip-of-the-day-temporarily-prevent-your-screen-from-going-to-sleep/
 if [[ $1 =~ ^0$ ]]; then
   xset s on +dpms
   echo "No longer preventing screen sleep"
