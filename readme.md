@@ -19,6 +19,14 @@ Prevent computer from sleep an amount of time.
 >* ref:
 https://www.gregjs.com/linux/2016/linux-tip-of-the-day-temporarily-prevent-your-screen-from-going-to-sleep/
 
+### Update System
+
+`update_system.sh`
+
+Run apt update, upgrade, autoremove and clean sequentially.
+
+>* Usage: just run `update_system.sh`.
+
 ## Docker
 Docker bash scripts, composer recipes or related files.
 
