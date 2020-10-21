@@ -1,6 +1,15 @@
 # Scripts
 A series of Bash scripts to provide extended OS functionalities.
 
+## Setup
+
+1. Clone this git;
+2. Edit `.profile` and copy the last lines from 'config/.profile' or replace if everything else is the same;
+3. Reload profile: `. ~/.profle`;
+4. Run script.
+
+>* Backup old file before overwrite
+
 ## Bash General
 
 ### Check battery status
@@ -26,6 +35,17 @@ https://www.gregjs.com/linux/2016/linux-tip-of-the-day-temporarily-prevent-your-
 Run apt update, upgrade, autoremove and clean sequentially.
 
 >* Usage: just run `update_system.sh`.
+
+## Bash VM
+
+### VM Resize
+
+`vmresize.sh`
+
+Resize linux guest screen to fit host qemu window.
+
+>* Usage `vmresize.sh`
+>* Shortcut to `xrandr --output Monitor --auto`, where 'Monitor' is a virtual display get programatically.
 
 ## Docker
 Docker bash scripts, composer recipes or related files.
