@@ -8,6 +8,7 @@ def do():
     from os import system
     cmd = 'xrandr --output "$(xrandr | awk \'/ connected/{print $1; exit; }\')" --auto'
     system(cmd)
+    return
 
 def start():
     if len(sys.argv) == 1:
