@@ -1,7 +1,7 @@
-# Scripts
-A series of Bash scripts to provide extended OS functionalities.
+# Easy Scripts
+Some Python scritps to make life a bit easier.
 
-## Setup
+## Setup (deprecated)
 
 1. Clone this git;
 2. Edit `.profile` and copy the last lines from 'config/.profile' or replace if everything else is the same;
@@ -70,3 +70,7 @@ Executed before bash loads.
 
 >* Path: `~/.profile`
 >* Backup old file before overwrite
+
+## History
+
+* 2020-11-02: Start moving from Bash to Python, from multiple subfolders to one single folder
