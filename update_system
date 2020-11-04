@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 
 import sys
 from utils import run, get_process, is_help_needed, show_help
@@ -25,7 +25,9 @@ def upd_command(msg: str, cmd: str):
 
 def do():
     flavor = get_flavor()
-    if flavor is None: return
+    if flavor is None:
+        print('Flovor not recognized.')
+        return
     if flavor == 'ubuntu':
         upd_command(MSG_UPDATE, 'sudo apt update')
         upd_command(MSG_UPGRADE, 'sudo apt -y upgrade')
@@ -42,11 +44,11 @@ def do():
 
 def start():
     if len(sys.argv) == 1:
+        do()
         return
     if is_help_needed():
         show_help('')
         return
-    do()
     return
 
 start()
