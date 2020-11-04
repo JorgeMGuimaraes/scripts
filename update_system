@@ -49,3 +49,4 @@ def start():
     do()
     return
 
+start()
