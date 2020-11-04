@@ -15,7 +15,7 @@ def start():
     if len(sys.argv) == 1:
         return
     if is_help_needed():
-        show_help()
+        show_help('')
         return
     return
 
