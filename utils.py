@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 import subprocess
 import sys
 
@@ -12,9 +12,10 @@ def get_process(args:list):
     '''Run a subprocess and return a 'CompletedProcess'.'''
     return subprocess.run(
         args                =args,
-        check               =True,
+        universal_newlines  =True,
         stdout              =subprocess.PIPE,
-        universal_newlines  =True
+        stderr              =subprocess.PIPE,
+        check               =True,
         )
 
 def is_help_needed() -> bool:
