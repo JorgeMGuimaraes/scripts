@@ -1,0 +1,8 @@
+#! /usr/bin/env python3
+
+import sys
+from utils import run, get_process, is_help_needed, show_help
+
+cmd         = 'printf'
+test_str    = 'Test Lorem'
+assert get_process([cmd, test_str]).stdout == test_str

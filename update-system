@@ -26,7 +26,7 @@ def upd_command(msg: str, cmd: str):
 def do():
     flavor = get_flavor()
     if flavor is None:
-        print('Flovor not recognized.')
+        print('Flavor not recognized.')
         return
     if flavor == 'ubuntu':
         upd_command(MSG_UPDATE, 'sudo apt update')
@@ -47,7 +47,7 @@ def start():
         do()
         return
     if is_help_needed():
-        show_help('')
+        show_help(sys.argv[0])
         return
     return
 
