@@ -1,0 +1,4 @@
+Update Time
+
+    Forces your clock to update by switching off an on ntp service.
+    Is the same as $> timedatectl set-ntp off && timedatectl set-ntp on
