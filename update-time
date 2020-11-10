@@ -23,7 +23,7 @@ def start():
         do()
         return
     if is_help_needed():
-        show_help('')
+        show_help(sys.argv[0])
         return
     return
 
