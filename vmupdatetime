@@ -1,0 +1,22 @@
+#! /usr/bin/env python3
+
+import sys
+from utils import run, get_process, is_help_needed, show_help
+
+
+def do():
+    from os import system
+    cmd = 'sudo timedatectl set-ntp off && sudo timedatectl set-ntp on'
+    system(cmd)
+    return
+
+def start():
+    if len(sys.argv) == 1:
+        do()
+        return
+    if is_help_needed():
+        show_help('')
+        return
+    return
+
+start()
