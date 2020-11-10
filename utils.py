@@ -22,7 +22,13 @@ def is_help_needed() -> bool:
     '''Check if user entered a help token.'''
     return sys.argv[1] == '--help' or sys.argv[1] == '-h'
 
-def show_help(help_message: str):
-    '''Print all help messages'''
-    print(help_message)
+def show_help(script_name: str):
+    '''Print help file'''
+    try:
+        file_name = f'{script_name}-man'
+        with open(file=file_name, mode='r', encoding='utf8') as f:
+            for line in f:
+                print(line.strip('\n'))
+    except FileNotFoundError:
+        print('Help file does not exist.')
     return
