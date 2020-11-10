@@ -6,7 +6,11 @@ from utils import run, get_process, is_help_needed, show_help
 
 def do():
     from os import system
+    cmd = 'printf "Current time: " && date'
+    system(cmd)
     cmd = 'sudo timedatectl set-ntp off && sudo timedatectl set-ntp on'
+    system(cmd)
+    cmd = 'printf "Updated time: " && date'
     system(cmd)
     return
 
