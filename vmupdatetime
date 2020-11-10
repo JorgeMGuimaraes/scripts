@@ -1,17 +1,21 @@
 #! /usr/bin/env python3
 
 import sys
-from utils import run, get_process, is_help_needed, show_help
-
+from utils import get_process, is_help_needed, show_help
 
 def do():
-    from os import system
-    cmd = 'printf "Current time: " && date'
-    system(cmd)
-    cmd = 'sudo timedatectl set-ntp off && sudo timedatectl set-ntp on'
-    system(cmd)
-    cmd = 'printf "Updated time: " && date'
-    system(cmd)
+    cmds = []
+    cmds.append(['printf', 'Current time: '])
+    cmds.append(['date'])
+    cmds.append(['sudo', 'timedatectl', 'set-ntp', 'off'])
+    cmds.append(['sudo', 'timedatectl', 'set-ntp', 'on'])
+    cmds.append(['printf', 'Updated time: '])
+    cmds.append(['date'])
+
+    for cmd in cmds:
+        result = get_process(cmd)
+        if result.stdout != '': print(result.stdout)
+
     return
 
 def start():
