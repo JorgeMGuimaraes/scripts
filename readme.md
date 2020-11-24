@@ -1,76 +1,59 @@
-# Easy Scripts
-Some Python scritps to make life a bit easier.
+# Lazy Scr
+
+Because  we're too lazy to write *Scripts*. 
+Some Python scripts to make life a bit easier by bundling linux commands together with less typing and easy to remember names.
 
 ## Setup (deprecated)
-
+> Make sure you have Python 3.6+ installed.
 1. Clone this git;
 2. Edit `.profile` and copy the last lines from 'config/.profile' or replace if everything else is the same;
 3. Reload profile: `. ~/.profle`;
-4. Run script.
+4. Run scripts.
 
->* Backup old file before overwrite
+>* Backup old files before overwrite
 
-## Bash General
+## General
+These scripts were designed to work on Linux systems. May work on MacOS? I don't know.
 
-### Check battery status
-`check_battery_status.sh`
+As said before, all writen in Python, most because it's easier to write funcions than in Bash or similar, easier to debug, easier to find help...
 
-Notify user if battery level is less than a threshold.
->* Default: 30%
->* Ubuntu only
+## Scripts
 
-### Caff (Caffeine)
-`caff.sh time`
-
-Prevent computer from sleep an amount of time.
-
->* Usage: `caff.sh 25` for 25 minutes;
->* ref:
-https://www.gregjs.com/linux/2016/linux-tip-of-the-day-temporarily-prevent-your-screen-from-going-to-sleep/
+Here is alist of what you can find here:
 
 ### Update System
 
-`update_system.sh`
+`update_system`
 
-Run apt update, upgrade, autoremove and clean sequentially.
+Performs:
+* update repository lists,
+* upgrade installed software,
+* autoremove and clean cache data.
 
->* Usage: just run `update_system.sh`.
+Uses different tools for different OSes, for now, `apt` for Debian/Ubuntu and `pacman` for Arch Linux.
 
-## Bash VM
+>* Usage: just run `update_system`.
 
-### VM Resize
+### Resize Screen
 
-`vmresize.sh`
+`resize-screen`
 
 Resize linux guest screen to fit host qemu window.
 
->* Usage `vmresize.sh`
+>* Usage `resize-screen`
 >* Shortcut to `xrandr --output Monitor --auto`, where 'Monitor' is a virtual display get programatically.
 
-## Docker
-Docker bash scripts, composer recipes or related files.
+## To do
 
-### Lamp Server
-`start_docker_lamp.sh path`
-
-Start a Docker Lamp Server in local path if no path is provided.
-
->* Provide a path, or local path will be used;
->* Create an `app` subfolder to hold project files and folders (html, php, img/, etc);
->* Docker-LAMP comes pre-installed with phpMyAdmin available from http://DOCKER_ADDRESS/phpmyadmin;
->* ref: https://hub.docker.com/r/mattrayner/lamp
-
-## Config
-Various system/ software configuration files.
-
-### User Profile
-`.profile`
-
-Executed before bash loads.
-
->* Path: `~/.profile`
->* Backup old file before overwrite
+* Installation script
+* update-system-
+* Explain how man works
 
 ## History
 
-* 2020-11-02: Start moving from Bash to Python, from multiple subfolders to one single folder
+2020-11-10:
+- update-time added;
+- Todo list added to readme;
+
+2020-11-02:
+- Start moving from Bash to Python, from multiple subfolders to one single folder.
