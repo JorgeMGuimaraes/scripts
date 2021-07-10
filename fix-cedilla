@@ -1,0 +1,3 @@
+#!/bin/bash
+echo "GTK_IM_MODULE=cedilla" >> /etc/environment
+echo "QT_IM_MODULE=cedilla" >> /etc/environment
