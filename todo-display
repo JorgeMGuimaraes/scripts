@@ -1,0 +1,18 @@
+#!/usr/bin/python3
+
+# TODO: open todo file
+
+# TODO: display result
+
+# TODO: main
+def main() -> None:
+    print('Hello')
+    return
+
+########################################################################
+### Run main                                                         ###
+########################################################################
+
+if __name__ == "__main__":
+    main()
+
