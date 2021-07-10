@@ -1,12 +1,33 @@
 #!/usr/bin/python3
-
+########################################################################
+### Imports                                                          ###
+########################################################################
+from typing import List
+from utils import get_process
+import sys
+########################################################################
+### Definitions                                                      ###
+########################################################################
 # TODO: open todo file
 
 # TODO: display result
+def display(todo_file:str) -> List[str]:
+    return [f'less {todo_file}']
+
+def do(cmds:List[str]) -> None:
+    """Execute a list of commands"""
+    for cmd in cmds:
+        result = get_process(cmd)
+        if result.stdout != '':
+            print(result.stdout)
+    return
 
 # TODO: main
 def main() -> None:
-    print('Hello')
+    todo_file = '$(pwd)/todo.txt'
+    if(sys.argv[1] == '-r' or sys.argv[1] == '--read' ):
+        todo_file = f'$(pwd)/{sys.argv[2]}'
+    do(display(todo_file))
     return
 
 ########################################################################
@@ -15,4 +36,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
