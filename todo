@@ -1,0 +1,27 @@
+#!/usr/bin/python3
+
+# TODO: display to-do window
+
+# TODO: close existing window and reopen
+
+# TODO: CRUD
+
+# TODO: create
+
+# TODO: read
+
+# TODO: update
+
+# TODO: delete
+
+# TODO: main
+def main() -> None:
+    print('Hello')
+    return
+
+########################################################################
+### Run main                                                         ###
+########################################################################
+
+if __name__ == "__main__":
+    main()
