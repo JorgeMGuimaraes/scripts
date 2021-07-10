@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# help
+read -r -d '' help << EndOfHelp
+
+Use scrot to take a screenshot.
+
+Take a screenshot, save to '~/documents/screenshots', then open an image viewer.
+
+USAGE:
+    --help:     Display this message;
+    --full:     Takes a screenshot form screen (screen size). Same as scrot
+                (without options);
+    --rect:     Takes a screenshot from a rectangular area using the mouse.
+                Same as scrot -s;
+EndOfHelp
+
+# variables
+screenshot_folder=/home/$USER/documents/screenshots
+filename='screenshot.png'
+save_name="${RANDOM}_${filename}"
+# commands
+
+
+if [ "$1" == '--full' ]
+    then
+        scrot $filename
+        mv $filename $screenshot_folder/$save_name
+        feh $screenshot_folder/$save_name
+
+elif [ "$1" == '--rect' ]
+    then
+        scrot -s $filename
+        mv $filename $screenshot_folder/$save_name
+        feh $screenshot_folder/$save_name
+
+elif [ "$1" == '--help' ]
+    then
+        less -pbazorka "$help"
+else
+    echo "Provide a valid argument."
+fi
