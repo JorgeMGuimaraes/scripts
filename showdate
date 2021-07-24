@@ -1,0 +1,13 @@
+#!/bin/bash
+
+function showdate(){
+   printf '\033[;H'
+   printf '                             '
+   echo -n `date +"%H::%M::%S || %d::%m::%y"`
+   printf '                           '
+   sleep 1
+   showdate
+}
+
+clear               # Clear the screen
+showdate            # Call the function which will display the clock

@@ -1,38 +1,11 @@
-#!/usr/bin/python3
-########################################################################
-### Imports                                                          ###
-########################################################################
-from typing import List
-from utils import get_process
-import sys
-########################################################################
-### Definitions                                                      ###
-########################################################################
-# TODO: open todo file
+#!/bin/bash
 
-# TODO: display result
-def display(todo_file:str) -> List[str]:
-    return [f'less {todo_file}']
+length=80
+height=20
+window_name="todowindow"
+cmd="cat ~/documents/todo.txt"
 
-def do(cmds:List[str]) -> None:
-    """Execute a list of commands"""
-    for cmd in cmds:
-        result = get_process(cmd)
-        if result.stdout != '':
-            print(result.stdout)
-    return
-
-# TODO: main
-def main() -> None:
-    todo_file = '$(pwd)/todo.txt'
-    if(sys.argv[1] == '-r' or sys.argv[1] == '--read' ):
-        todo_file = f'$(pwd)/{sys.argv[2]}'
-    do(display(todo_file))
-    return
-
-########################################################################
-### Run main                                                         ###
-########################################################################
-
-if __name__ == "__main__":
-    main()
+st \
+	-g ${length}x${height} \
+	-t $window_name \
+	-e less ~/documents/todo.txt

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+length=80
+height=1
+window_name="datetime"
+cmd="showdate"
+
+st \
+	-g ${length}x${height} \
+	-t $window_name \
+	-e sh "${cmd}"
