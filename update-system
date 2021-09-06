@@ -16,6 +16,7 @@ def get_flavor() -> str:
     output = str(subprocess.check_output("uname -a", shell=True)).upper()
     if 'UBUNTU' in output: return 'ubuntu'
     if 'ARCH' in output: return 'archlinux'
+    if 'GENTOO' in output: return 'gentoo'
     return None
 
 def upd_command(msg: str, cmd: str):
@@ -40,6 +41,13 @@ def do():
         upd_command(MSG_UPDATE+MSG_UPGRADE, 'sudo pacman -Syyu')
         upd_command(MSG_AUTOREMOVE+MSG_CLEAN, 'sudo pacman -Scc')
         print('Exit\n')
+        return
+
+    if flavor == 'gentoo':
+        upd_command(MSG_UPDATE, 'emerge --sync')
+        upd_command(MSG_UPGRADE, 'emerge -uDNav @world --with-bdeps=y --keep-going')
+        upd_command('Clean up old libraries version', 'emerge @preserved-rebuild')
+        print('Carefully run "emerge -p --depclean" to remove unnecessary programs and libraries')
         return
 
 def start():
