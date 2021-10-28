@@ -1,0 +1,24 @@
+{
+    "rules": [
+        {
+            "src": "utils",
+            "dest": "$HOME/.local/bin"
+        },
+        {
+            "src": "update-system",
+            "dest": "$HOME/.local/bin"
+        },
+        {
+            "src": "apt.json",
+            "dest": "$HOME/.config/update-system"
+        },
+        {
+            "src": "emerge.json",
+            "dest": "$HOME/.config/update-system"
+        },
+        {
+            "src": "pacman.json",
+            "dest": "$HOME/.config/update-system"
+        }
+    ]
+}

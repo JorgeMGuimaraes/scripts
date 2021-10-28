@@ -1,0 +1,24 @@
+{
+    "rules": [
+        {
+            "msg": "Update Gentoo",
+            "cmd": ""
+        },
+        {
+            "msg": "MSG_UPDATE",
+            "cmd": "emerge --sync"
+        },
+        {
+            "msg": "MSG_UPGRADE",
+            "cmd": "emerge -uDNav @world --with-bdeps=y --keep-going"
+        },
+        {
+            "msg": "MSG_AUTOREMOVE",
+            "cmd": "emerge @preserved-rebuild"
+        },
+        {
+            "msg": "MSG_CLEAN",
+            "cmd": "Carefully run \"emerge -p --depclean\" to remove unnecessary programs and libraries"
+        }
+    ]
+}

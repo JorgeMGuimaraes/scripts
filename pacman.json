@@ -1,0 +1,24 @@
+{
+    "rules": [
+        {
+            "msg": "Update Arch Linux or Arch-based distros",
+            "cmd": ""
+        },
+        {
+            "msg": "MSG_UPDATE",
+            "cmd": ""
+        },
+        {
+            "msg": "MSG_UPGRADE",
+            "cmd": "sudo pacman -Syyu"
+        },
+        {
+            "msg": "MSG_AUTOREMOVE",
+            "cmd": ""
+        },
+        {
+            "msg": "MSG_CLEAN",
+            "cmd": "sudo pacman -Scc"
+        }
+    ]
+}

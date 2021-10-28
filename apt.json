@@ -1,0 +1,24 @@
+{
+    "rules": [
+        {
+            "msg": "Update Ubuntu, Debian or Debian-based distros",
+            "cmd": ""
+        },
+        {
+            "msg": "MSG_UPDATE",
+            "cmd": "apt update"
+        },
+        {
+            "msg": "MSG_UPGRADE",
+            "cmd": "apt -y upgrade"
+        },
+        {
+            "msg": "MSG_AUTOREMOVE",
+            "cmd": "apt -y autoremove"
+        },
+        {
+            "msg": "MSG_CLEAN",
+            "cmd": "apt -y clean"
+        }
+    ]
+}

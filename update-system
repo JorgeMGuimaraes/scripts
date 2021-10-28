@@ -1,56 +1,67 @@
 #! /usr/bin/env python3
-
+"""Update and upgrade a Linux system"""
+import json
 import sys
-from utils import run, get_process, is_help_needed, show_help, bcolors
 import subprocess
 from os import system
+from os.path import expandvars as p_expand, join as p_join
+from typing import List, Dict
+from utils import is_help_needed, show_help, bcolors
 
-MSG_UPDATE      = "Updating package information from all configured sources..."
-MSG_UPGRADE     = "\nInstalling available upgrades of all packages currently installed on the system from the sources configured via sources.list..."
-MSG_AUTOREMOVE  = "\nRemoving packages that were automatically installed to satisfy dependencies for other packages and are now no longer needed..."
-MSG_CLEAN       = "\nClearing out the local repository of retrieved package files..."
+messages = {
+    'MSG_UPDATE': "Updating package information from all configured sources...",
+    'MSG_UPGRADE': "\nInstalling available upgrades of all packages currently installed on the \
+    system from the sources configured via sources.list...",
+    'MSG_AUTOREMOVE': "\nRemoving packages that were automatically installed to satisfy \
+    dependencies for other packages and are now no longer needed...",
+    'MSG_CLEAN' : "\nClearing out the local repository of retrieved package files..."
+}
 
-
+rules_path = p_expand('$HOME/.config/update-system')
 
 def get_flavor() -> str:
+    """Return Linux distribution name"""
     output = str(subprocess.check_output("uname -a", shell=True)).upper()
-    if 'UBUNTU' in output: return 'ubuntu'
-    if 'ARCH' in output: return 'archlinux'
-    if 'GENTOO' in output: return 'gentoo'
+    if 'UBUNTU' or 'DEBIAN' in output:
+        return 'apt'
+    if 'ARCH' in output:
+        return 'pacman'
+    if 'GENTOO' in output:
+        return 'emerge'
     return None
 
-def upd_command(msg: str, cmd: str):
-    print(f'{bcolors.WARNING}{msg}{ bcolors.ENDC}\n')
-    system(cmd)
+def run(rule):
+    """Execute a command and print respective message"""
+    print(f"\n{bcolors.WARNING}{bcolors.BOLD}{messages[rule['msg']]}{ bcolors.ENDC}")
+    if rule['cmd'] != '':
+        print(f"{bcolors.OKGREEN}$: {rule['cmd']}{bcolors.ENDC}")
+        system(rule['cmd'])
     return
 
-def do():
+def do() -> None:
+    """Execute all commands if flavor is known"""
     flavor = get_flavor()
+
     if flavor is None:
         print('Flavor not recognized.')
         return
-    if flavor == 'ubuntu':
-        upd_command(MSG_UPDATE, 'sudo apt update')
-        upd_command(MSG_UPGRADE, 'sudo apt -y upgrade')
-        upd_command(MSG_AUTOREMOVE, 'sudo apt -y autoremove')
-        upd_command(MSG_CLEAN, 'sudo apt -y clean')
-        print('Exit\n')
-        return
-    
-    if flavor == 'archlinux':
-        upd_command(MSG_UPDATE+MSG_UPGRADE, 'sudo pacman -Syyu')
-        upd_command(MSG_AUTOREMOVE+MSG_CLEAN, 'sudo pacman -Scc')
-        print('Exit\n')
-        return
 
-    if flavor == 'gentoo':
-        upd_command(MSG_UPDATE, 'emerge --sync')
-        upd_command(MSG_UPGRADE, 'emerge -uDNav @world --with-bdeps=y --keep-going')
-        upd_command('Clean up old libraries version', 'emerge @preserved-rebuild')
-        print('Carefully run "emerge -p --depclean" to remove unnecessary programs and libraries')
-        return
+    for rule in commands_list(flavor)['rules']:
+        run(rule)
+    return
+
+def commands_list(package_manager) -> List[Dict[str, str]]:
+    """Return a list of commands to be executed"""
+    try:
+        with open(p_join(rules_path, f"{package_manager}.json"), encoding='utf-8') as json_file:
+            data = json.load(json_file)
+            return data
+    except FileNotFoundError:
+        print(f"{bcolors.FAIL}No {package_manager} rules found.{bcolors.ENDC}")
+        exit()
 
 def start():
+    """Start the update-system"""
     if len(sys.argv) == 1:
         do()
         return
@@ -59,4 +70,5 @@ def start():
         return
     return
 
-start()
+if __name__ == '__main__':
+    start()
