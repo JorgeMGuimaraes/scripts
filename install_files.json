@@ -1,7 +1,7 @@
 {
     "rules": [
         {
-            "src": "utils",
+            "src": "utils.py",
             "dest": "$HOME/.local/bin"
         },
         {
