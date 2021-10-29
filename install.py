@@ -3,13 +3,24 @@
 import json
 import shutil
 from typing import List, Dict
-from os.path import expandvars as p_expand, join as p_join
+from os import mkdir
+from os.path import expandvars as p_expand, join as p_join, exists
 
 def install(path):
     """Install all files."""
     print('Installing...')
     for file in files_list(path)['rules']:
-        shutil.copy(file['src'], p_join(p_expand(file['dest']), file['src']))
+        if not exists(file['dest']):
+            try:
+                mkdir(file['dest'])
+            except OSError:
+                print('Error creating directory: ' + file['dest'])
+                exit()
+        try:
+            shutil.copy(file['src'], p_join(p_expand(file['dest']), file['src']))
+        except OSError:
+            print('Error copying file: ' + file['src'])
+            exit()
         print(f" {file['src']} Installed!...")
     print('All files installed.')
 
