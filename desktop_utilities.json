@@ -7,7 +7,7 @@
         },
         {
             "description": "Show volume control",
-            "cmd": "./volume_control",
+            "cmd": "volume_control",
             "shortcut": "vol"
         },
         {
