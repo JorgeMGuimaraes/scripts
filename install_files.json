@@ -19,6 +19,18 @@
         {
             "src": "pacman.json",
             "dest": "/usr/local/etc"
+        },
+        {
+            "src": "dt",
+            "dest": "/usr/local/bin"
+        },
+        {
+            "src": "desktop_utilities.json",
+            "dest": "/usr/local/etc"
+        },
+        {
+            "src": "volume_control",
+            "dest": "/usr/local/bin"
         }
     ]
 }
