@@ -1,23 +1,21 @@
 #! /usr/bin/env python3
 """Update and upgrade a Linux system"""
-import json
 import sys
 import subprocess
 from os import system
 from os.path import expandvars as p_expand, join as p_join
-from typing import List, Dict
-from utils import is_help_needed, show_help, bcolors
+from utils import is_help_needed, show_help, bcolors, load_data as commands_list
 
 messages = {
     'MSG_UPDATE': "Updating package information from all configured sources...",
     'MSG_UPGRADE': "\nInstalling available upgrades of all packages currently installed on the \
-    system from the sources configured via sources.list...",
+system from the sources configured via sources.list...",
     'MSG_AUTOREMOVE': "\nRemoving packages that were automatically installed to satisfy \
-    dependencies for other packages and are now no longer needed...",
+dependencies for other packages and are now no longer needed...",
     'MSG_CLEAN' : "\nClearing out the local repository of retrieved package files..."
 }
 
-rules_path = p_expand('$HOME/.config/update-system')
+rules_path = p_expand('/usr/local/etc')
 
 def get_flavor() -> str:
     """Return Linux distribution name"""
@@ -29,6 +27,11 @@ def get_flavor() -> str:
     if 'GENTOO' in output:
         return 'emerge'
     return None
+
+def print_header(rule) -> None:
+    """Print header"""
+    print(f"\n{bcolors.OKBLUE}{bcolors.BOLD}{rule['msg']}{ bcolors.ENDC}")
+    return
 
 def run(rule):
     """Execute a command and print respective message"""
@@ -46,19 +49,15 @@ def do() -> None:
         print('Flavor not recognized.')
         return
 
-    for rule in commands_list(flavor)['rules']:
-        run(rule)
+    rules = commands_list(config_file(flavor))['rules']
+    print_header(rules[0])
+    for i in range(1, len(rules)):
+        run(rules[i])
     return
 
-def commands_list(package_manager) -> List[Dict[str, str]]:
-    """Return a list of commands to be executed"""
-    try:
-        with open(p_join(rules_path, f"{package_manager}.json"), encoding='utf-8') as json_file:
-            data = json.load(json_file)
-            return data
-    except FileNotFoundError:
-        print(f"{bcolors.FAIL}No {package_manager} rules found.{bcolors.ENDC}")
-        exit()
+def config_file(flavor: str) -> str:
+    """Return path to config file"""
+    return p_join(rules_path, f"{flavor}.json")
 
 def start():
     """Start the update-system"""
