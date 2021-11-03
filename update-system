@@ -15,8 +15,6 @@ dependencies for other packages and are now no longer needed...",
     'MSG_CLEAN' : "\nClearing out the local repository of retrieved package files..."
 }
 
-rules_path = p_expand('/usr/local/etc')
-
 def get_flavor() -> str:
     """Return Linux distribution name"""
     output = str(subprocess.check_output("uname -a", shell=True)).upper()
@@ -41,7 +39,7 @@ def run(rule):
         system(rule['cmd'])
     return
 
-def do() -> None:
+def do_update(path: str) -> None:
     """Execute all commands if flavor is known"""
     flavor = get_flavor()
 
@@ -49,25 +47,21 @@ def do() -> None:
         print('Flavor not recognized.')
         return
 
-    rules = commands_list(config_file(flavor))['rules']
+    rules = commands_list(config_file(path, flavor))['rules']
     print_header(rules[0])
     for i in range(1, len(rules)):
         run(rules[i])
     return
 
-def config_file(flavor: str) -> str:
+def config_file(path: str, flavor: str) -> str:
     """Return path to config file"""
-    return p_join(rules_path, f"{flavor}.json")
-
-def start():
-    """Start the update-system"""
-    if len(sys.argv) == 1:
-        do()
-        return
-    if is_help_needed():
-        show_help(sys.argv[0])
-        return
-    return
+    return p_join(path, f"{flavor}.json")
 
 if __name__ == '__main__':
-    start()
+    if len(sys.argv) == 1:
+        rules_path = p_expand('/usr/local/etc')
+        do_update(rules_path)
+        exit(0)
+    if is_help_needed():
+        show_help(sys.argv[0])
+        exit(0)
