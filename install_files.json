@@ -31,6 +31,10 @@
         {
             "src": "volume_control",
             "dest": "/usr/local/bin"
+        },
+        {
+            "src": "whatsapp_this",
+            "dest": "/usr/local/bin"
         }
     ]
 }
