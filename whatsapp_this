@@ -1,0 +1,10 @@
+#! /usr/bin/python3
+"""Send message to uknown contact via whatsapp"""
+
+from utils import run
+
+if __name__ == '__main__':
+    ADDR    = 'https://api.whatsapp.com/send?phone=55'
+    phone   = input('Enter contact number: ').replace('-', '').replace(' ', '')\
+              .replace('(', '').replace(')', '')
+    run([f"xdg-open {ADDR}{phone}"])
