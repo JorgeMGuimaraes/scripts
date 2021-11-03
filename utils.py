@@ -1,6 +1,10 @@
 #! /usr/bin/env python3
+"""Utilities"""
+import json
 import subprocess
 import sys
+from os import system
+from typing import Dict, List
 
 class bcolors:
     HEADER      = '\033[95m'
@@ -13,9 +17,12 @@ class bcolors:
     BOLD        = '\033[1m'
     UNDERLINE   = '\033[4m'
 
-def run(args:list):
+def run(cmds:List[str]):
     '''Run a list of shell commands and arguments'''
-    _ = subprocess.call(args=args, shell=True)
+    for cmd in cmds:
+        print(f'{bcolors.OKGREEN}$ {cmd}{bcolors.ENDC}')
+    for cmd in cmds:
+        system(cmd)
     return
 
 def get_process(args:list):
@@ -42,3 +49,13 @@ def show_help(script_name: str):
     except FileNotFoundError:
         print('Help file does not exist.')
     return
+
+def load_data(file_name: str) -> List[Dict[str, str]]:
+    """Load data from a json file."""
+    try:
+        with open(file_name, encoding='utf-8') as json_file:
+            data = json.load(json_file)
+            return data
+    except FileNotFoundError:
+        print(f"{bcolors.FAIL}File not found: {file_name}.{bcolors.ENDC}")
+        exit()
