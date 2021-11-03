@@ -1,0 +1,62 @@
+#! /usr/bin/python3
+
+from os import system
+import sys
+from typing import List
+from utils import load_data
+
+class Option():
+    """A Option, script or utility"""
+    def __init__(self, description, cmd, shortcut) -> None:
+        self.description    = description
+        self.cmd            = cmd
+        self.shortcut       = shortcut
+        return
+
+    def __str__(self) -> str:
+        return f"{self.description} ({self.shortcut})"
+
+def load_options(file) -> List[Option]:
+    """
+    Returns a list of Options from json file.
+    """
+    return [Option(option['description'], option['cmd'], option['shortcut']) for option in load_data(file)['options']]
+
+def display_options_menu(options: List[Option]) -> None:
+    """
+    Display the options menu.
+    """
+    for i, option in enumerate(options):
+        print(f"[{i:<2}] - ({option.shortcut}) {option.description}")
+    print(f"[{len(options):<2}] - Exit")
+    return
+
+def get_user_choice(max_val: int) -> int:
+    """
+    Returns the user choice.
+    """
+    should_continue = True
+    while should_continue:
+        try:
+            choice = int(input("\nEnter your choice: "))
+            if choice == max_val:
+                print('Exiting\n')
+                exit(0)
+            elif choice > 0 and choice < max_val:
+                return choice
+        except ValueError:
+            print("Invalid choice.")
+
+if __name__ == '__main__':
+    #TODO: DATA = '$HOME/.config/dt/desktop_utilities.json'
+    DATA    = 'desktop_utilities.json'
+    options = load_options(DATA)
+    if len(sys.argv) > 1:
+        for option in options:
+            if option.shortcut == sys.argv[1]:
+                system(option.cmd)
+                exit(0)
+
+    display_options_menu(options)
+    choice  = get_user_choice(len(options))
+    system(options[choice].cmd)

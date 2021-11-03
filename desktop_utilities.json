@@ -1,0 +1,24 @@
+{
+    "options": [
+        {
+            "description": "Update a Linux distro.",
+            "cmd": "update-system",
+            "shortcut": "upd"
+        },
+        {
+            "description": "Show volume control",
+            "cmd": "./volume_control",
+            "shortcut": "vol"
+        },
+        {
+            "description": "Send message to uknown contact via whatsapp",
+            "cmd": "whatsapp_this",
+            "shortcut": "wa"
+        },
+        {
+            "description": "Open file manager",
+            "cmd": "ranger",
+            "shortcut": "fm"
+        }
+    ]
+}
