@@ -2,23 +2,23 @@
     "rules": [
         {
             "src": "utils.py",
-            "dest": "$HOME/.local/bin"
+            "dest": "/usr/local/bin"
         },
         {
             "src": "update-system",
-            "dest": "$HOME/.local/bin"
+            "dest": "/usr/local/bin"
         },
         {
             "src": "apt.json",
-            "dest": "$HOME/.config/update-system"
+            "dest": "/usr/local/etc"
         },
         {
             "src": "emerge.json",
-            "dest": "$HOME/.config/update-system"
+            "dest": "/usr/local/etc"
         },
         {
             "src": "pacman.json",
-            "dest": "$HOME/.config/update-system"
+            "dest": "/usr/local/etc"
         }
     ]
 }
