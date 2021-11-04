@@ -35,6 +35,10 @@
         {
             "src": "whatsapp_this",
             "dest": "/usr/local/bin"
+        },
+        {
+            "src": "plypboard",
+            "dest": "/usr/local/bin"
         }
     ]
 }
