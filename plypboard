@@ -1,0 +1,85 @@
+#! /usr/bin/env python3
+"""Serialize and deserialize clipboard data. Needs pyperclip module (pip) and xclip (os)."""
+import shelve
+import pickle
+
+from utils import load_data, save_data
+import sys
+from os import mkdir
+from os.path import expandvars as p_expand, join as p_join, exists
+try:
+    import pyperclip
+except ImportError:
+    print("pyperclip is not installed. Try run 'pip install pyperclip'\n")
+    exit(1)
+
+def save_clipboard(path, key: str):
+    """Save text from clipbloard to a shelve object"""
+    value = pyperclip.paste()
+    # with shelve.open(p_expand(path), flag='c') as file:
+    #     value       = pyperclip.paste()
+    #     file[key]   = value
+    #     print(f"{shrink_text(value)} saved from clipboard as {key}")
+    # return
+
+def load_clipboard(path, key: str):
+    """Load text from shelve object to clipboard"""
+    with shelve.open(p_expand(path), flag='c') as file:
+        value = file[key]
+        pyperclip.copy(value)
+        print(f"{value}")
+    return
+
+def list_clipboard(path):
+    """List all keys in shelve object"""
+    print("\nListing keys and values:")
+    print(f"{p_expand(path)}.db")
+    with shelve.open(p_expand(path), flag='c') as file:
+        print(list(file.keys()))
+        print(list(file.values()))
+        for key in file.keys():
+            print(f"[{key}]: {file[key]}")
+    return
+
+def delete_clipboard(path, key: str):
+    """Delete key from shelve object"""
+    with shelve.open(p_expand(path), flag='c') as file:
+        del file[key]
+    return
+
+def shrink_text(value):
+    """Shrink text to fit in clipboard"""
+    limit = 20
+    if len(value) > limit:
+        return f"{value[:limit]} ..."
+
+    return value
+
+if __name__ == "__main__":
+    USAGE       = "Usage: plypboard [(s)ave|(l)oad|(li)st|(d)elete] [key]"
+    CLIP_PATH   = '$HOME/.config/clypeboard'
+    CLIP_FILE   = p_join(p_expand(CLIP_PATH), 'clipboard')
+    if not exists(p_expand(CLIP_PATH)):
+        mkdir(p_expand(CLIP_PATH))
+
+    if len(sys.argv) == 1:
+        print(USAGE)
+        exit(1)
+
+    elif len(sys.argv) == 2:
+        if sys.argv[1] == 'li':
+            list_clipboard(CLIP_FILE)
+        else:
+            print(USAGE)
+            exit(1)
+
+    elif len(sys.argv) == 3:
+        if sys.argv[1] == "s":
+            save_clipboard(CLIP_PATH, sys.argv[2])
+        elif sys.argv[1] == "l":
+            load_clipboard(CLIP_PATH, sys.argv[2])
+        elif sys.argv[1] == "d":
+            delete_clipboard(CLIP_PATH, sys.argv[2])
+        else:
+            print(USAGE)
+            exit(1)
