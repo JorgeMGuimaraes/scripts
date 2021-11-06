@@ -16,6 +16,11 @@
             "shortcut": "wa"
         },
         {
+            "description": "Serialize and deserialize clipboard data. Needs pyperclip module (pip) and xclip (os)",
+            "cmd": "plypboard",
+            "shortcut": "cb"
+        },
+        {
             "description": "Open file manager",
             "cmd": "ranger",
             "shortcut": "fm"
